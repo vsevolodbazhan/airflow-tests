@@ -10,3 +10,6 @@ __pycache__
 # Python Tools
 .mypy_cache
 .pytest_cache
+
+# Virtual Environment
+.venv
