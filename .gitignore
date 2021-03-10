@@ -1,0 +1,12 @@
+# VSCode
+.vscode
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__
+
+# Python Tools
+.mypy_cache
+.pytest_cache
