@@ -8,7 +8,14 @@ with DAG(
     description="Simple DAG for experimenting with tests.",
     start_date=days_ago(n=1),
 ) as dag:
-    BashOperator(
+    echo_execution_date = BashOperator(
         task_id="echo_execution_date",
         bash_command="echo {{ execution_date }}",
     )
+
+    echo_next_ds = BashOperator(
+        task_id="echo_next_ds",
+        bash_command="echo {{ next_ds }}",
+    )
+
+    echo_execution_date >> echo_next_ds
