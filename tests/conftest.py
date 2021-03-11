@@ -26,7 +26,10 @@ def build_task_instance(
 @pytest.helpers.register
 def get_dag(dag_id: str) -> DAG:
     dag_bag = DagBag()
-    return dag_bag.get_dag(dag_id=dag_id)
+    dag = dag_bag.get_dag(dag_id=dag_id)
+    if dag is None:
+        raise KeyError(f"DAG with ID '{dag_id}' does not exist.")
+    return dag
 
 
 @pytest.helpers.register
