@@ -4,6 +4,8 @@ import pendulum
 import pytest
 from airflow.models import DAG, TaskInstance
 from airflow.models.baseoperator import BaseOperator
+from airflow.models.connection import Connection
+from airflow.exceptions import AirflowNotFoundException
 from airflow.models.dagbag import DagBag
 from airflow.utils.state import State
 
@@ -43,6 +45,15 @@ def get_task(dag: DAG, task_id: str) -> BaseOperator:
 @pytest.helpers.register
 def get_xcom_value(task_instance: TaskInstance):
     return task_instance.xcom_pull(task_ids=task_instance.task_id)
+
+
+@pytest.helpers.register
+def does_connection_exist(conn_id: str) -> bool:
+    try:
+        Connection.get_connection_from_secrets(conn_id=conn_id)
+        return True
+    except AirflowNotFoundException:
+        return False
 
 
 @pytest.helpers.register
