@@ -7,7 +7,7 @@ def dag_id():
     return "simple_dag"
 
 
-def test_dag_structure(dag_id):
+def test_dag_structure_is_valid(dag_id):
     dag = pytest.helpers.get_dag(dag_id=dag_id)
     assert pytest.helpers.get_dag_structure(dag=dag) == {
         "start_task": ["first_task"],
@@ -18,27 +18,27 @@ def test_dag_structure(dag_id):
     }
 
 
-def test_start_task(dag_id):
+def test_start_task_runs_successfully(dag_id):
     task_instance = pytest.helpers.build_task_instance(dag_id=dag_id, task_id="start_task")
     state = pytest.helpers.run_task(task_instance=task_instance)
     assert state == State.SUCCESS
 
 
-def test_first_task(dag_id):
+def test_first_task_runs_successfully(dag_id):
     task_instance = pytest.helpers.build_task_instance(dag_id=dag_id, task_id="first_task")
     state, xcom_value = pytest.helpers.run_xcom_task(task_instance=task_instance)
     assert state == State.SUCCESS
     assert xcom_value == "1"
 
 
-def test_second_task(dag_id):
+def test_second_task_runs_successfully(dag_id):
     task_instance = pytest.helpers.build_task_instance(dag_id=dag_id, task_id="second_task")
     state, xcom_value = pytest.helpers.run_xcom_task(task_instance=task_instance)
     assert state == State.SUCCESS
     assert xcom_value == "2"
 
 
-def test_third_task(dag_id):
+def test_third_task_runs_successfully(dag_id):
     task_instance = pytest.helpers.build_task_instance(dag_id=dag_id, task_id="third_task")
     state, xcom_value = pytest.helpers.run_xcom_task(task_instance=task_instance)
     assert state == State.SUCCESS

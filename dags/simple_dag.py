@@ -3,6 +3,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.dummy import DummyOperator
 from airflow.utils.dates import days_ago
 
+
 with DAG(
     dag_id="simple_dag",
     description="Simple DAG for experimenting with tests.",
